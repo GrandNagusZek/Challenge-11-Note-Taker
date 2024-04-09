@@ -2,6 +2,7 @@
 const express=require("express")
 // need path to find the file path
 const path=require("path")
+const { v4: uuidv4 } = require('uuid');
 
 // need port to identify the server, Heroku will assign a port number, this is what the 'process.env.PORT' is for...the || statement is for when/if we run locally the port will be 3001
 const PORT = process.env.PORT || 3001 
@@ -41,7 +42,7 @@ app.post("/api/notes", (req, res)=> {
     const { title, text} = req.body
     
     if (title && text) {
-        const newNote = {title, text, id: uuid()}
+        const newNote = {title, text, id: uuidv4()}
 
         fs.readFile('./db/db.json', 'utf8', (err, data) =>{
             if (err) {
